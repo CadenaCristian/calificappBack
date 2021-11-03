@@ -17,7 +17,6 @@ def listTeacherNotes(request):
         if teacheList.count() != 0:
             for x in teacheList:
                 json_data.append(x)
-            print("json_data: ", json_data)
             message = "Se retorna el listado de las calificaciones de los instructores."
         returnPeticion = {
             "error": error,

@@ -33,6 +33,7 @@ def login(request):
                 acceso = True
                 message = 'Usuario autenticado!'
             else:
+                error = True
                 message = 'El Usuario o la contraseña no son validos'
         else:
             error = True
@@ -63,7 +64,6 @@ def recoverPassword(request):
                 idFind = {"dni": body["user"]}
                 valUser["password"] = body['password']
                 resultUpdate = coleccion.update(idFind, valUser)
-                print("resultUpdate: ", resultUpdate["nModified"])
                 message = valMessage(
                     'actualiza', 'password', resultUpdate["nModified"])
                 if resultUpdate["nModified"] == 1:
@@ -71,7 +71,6 @@ def recoverPassword(request):
                     server.login(user, password)
                     server.sendmail(user, body["email"], bodyCart)
                     server.quit()
-                    print("Enviado")
                     error = False
         returnPeticion = {
             "error": error,

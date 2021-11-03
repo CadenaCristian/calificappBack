@@ -17,7 +17,7 @@ def listTeachers(request):
         error = False
         message = "No se han ingresado instructores por el momento."
         teacheList = coleccion.find(
-            {'rol': 'teacher'}, {'_id': 0, 'name': 1, 'rol': 1, 'email': 1, 'dni': 1})
+            {'rol': 'teacher'}, {'_id': 0, 'name': 1, 'rol': 1, 'email': 1, 'dni': 1, 'img': 1})
         if teacheList.count() != 0:
             for x in teacheList:
                 json_data.append(x)
