@@ -25,11 +25,16 @@ def login(request):
         body = json.loads(bodyUnicode)
         acceso, error, passChange = False, False, False
         message = ''
+        data = {"name": '', "email": '', "dni": '', "rol": ''}
         userExist = valUserExist(body["user"])
         if userExist != None:
-            valUser = coleccion.find_one(
-                {'dni': body["user"], 'password': body["password"]})
-            if valUser != None:
+            valUser = coleccion.find(
+                {'dni': body["user"], 'password': body["password"]}, {'_id': 0, 'password': 0, 'img': 0})
+            if valUser.count() != 0:
+                for x in valUser:
+                    data = {"name": x["name"],
+                            "email": x["email"], "dni": x["dni"], "rol": x["rol"]}
+                print(data)
                 acceso = True
                 message = 'Usuario autenticado!'
             else:
@@ -43,7 +48,8 @@ def login(request):
         returnPeticion = {
             "error": error,
             "message": message,
-            "changePassword": passChange
+            "changePassword": passChange,
+            "dataUser": data
         }
         return JsonResponse(returnPeticion, safe=False)
 

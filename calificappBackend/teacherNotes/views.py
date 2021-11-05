@@ -13,7 +13,7 @@ def listTeacherNotes(request):
         json_data = []
         error = False
         message = "No se ha calificado a ningun instructor por el momento."
-        teacheList = coleccion.find()
+        teacheList = coleccion.find({}, {'_id': 0})
         if teacheList.count() != 0:
             for x in teacheList:
                 json_data.append(x)
